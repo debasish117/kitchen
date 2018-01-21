@@ -34,7 +34,7 @@ development:
   database: <%= repository_name %>_development
   pool: 5
   username: postgres
-  password: spork123
+  password: debasish117
 
 test:
   adapter: postgresql
@@ -42,4 +42,4 @@ test:
   database: <%= repository_name %>_test
   pool: 5
   username: postgres
-  password: spork123
+  password: debasish117
