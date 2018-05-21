@@ -3,33 +3,33 @@ class Api::V1::ContactsController < ApplicationController
 
   # GET /contacts
   def index
-    @contacts = Contact.all
+    contacts = Contact.all
 
-    render json: @contacts
+    render json: contacts
   end
 
   # GET /contacts/1
   def show
-    render json: @contact
+    render json: contact
   end
 
   # POST /contacts
   def create
-    @contact = Contact.new(contact_params)
+    contact = current_user.build_contact(contact_params)
 
-    if @contact.save
-      render json: @contact, status: :created, location: @contact
+    if contact.save
+      render json: contact, status: :created, location: contact
     else
-      render json: @contact.errors, status: :unprocessable_entity
+      render json: contact.errors, status: :unprocessable_entity
     end
   end
 
   # PATCH/PUT /contacts/1
   def update
     if @contact.update(contact_params)
-      render json: @contact
+      render json: contact
     else
-      render json: @contact.errors, status: :unprocessable_entity
+      render json: contact.errors, status: :unprocessable_entity
     end
   end
 
@@ -46,6 +46,6 @@ class Api::V1::ContactsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def contact_params
-      params.require(:contact).permit(:mobile, :address, :city, :state, :zip, :user_id)
+      params.require(:contact).permit(:mobile, :address, :city, :state, :zip)
     end
 end

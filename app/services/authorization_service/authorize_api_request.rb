@@ -1,8 +1,9 @@
-class AuthorizeApiRequest
-  prepend SimpleCommand
+class AuthorizationService::AuthorizeApiRequest
+  attr_reader :errors
 
   def initialize(headers = {})
     @headers = headers
+    @errors = {}
   end
 
   def call
@@ -15,7 +16,7 @@ class AuthorizeApiRequest
 
   def user
     @user ||= User.find(decoded_auth_token[:user_id]) if decoded_auth_token
-    @user || errors.add(:token, 'Invalid token') && nil
+    @user || errors[:message] = 'Invalid token' && nil
   end
 
   def decoded_auth_token
@@ -26,7 +27,7 @@ class AuthorizeApiRequest
     if headers['Authorization'].present?
       return headers['Authorization'].split(' ').last
     else
-      errors.add(:token, 'Missing token')
+      errors[:message] = 'Missing token'
     end
     nil
   end

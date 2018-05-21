@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180121163641) do
+ActiveRecord::Schema.define(version: 20180520135730) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -31,6 +31,18 @@ ActiveRecord::Schema.define(version: 20180121163641) do
     t.integer "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_contacts_on_user_id"
+  end
+
+  create_table "customers", force: :cascade do |t|
+    t.string "name"
+    t.string "contact_number"
+    t.string "gender"
+    t.integer "age"
+    t.integer "restaurant_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["restaurant_id"], name: "index_customers_on_restaurant_id"
   end
 
   create_table "items", force: :cascade do |t|
@@ -38,11 +50,42 @@ ActiveRecord::Schema.define(version: 20180121163641) do
     t.text "description"
     t.string "prep_time"
     t.string "difficulty_level"
-    t.integer "category"
+    t.integer "category_id"
+    t.integer "pricing_id"
     t.string "origin"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["category"], name: "index_items_on_category"
+    t.index ["category_id"], name: "index_items_on_category_id"
+  end
+
+  create_table "pricings", force: :cascade do |t|
+    t.float "amount"
+    t.string "currency_type"
+    t.integer "item_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["item_id"], name: "index_pricings_on_item_id"
+  end
+
+  create_table "restaurants", force: :cascade do |t|
+    t.string "name"
+    t.string "type"
+    t.text "address"
+    t.text "description"
+    t.string "speciality"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "reviews", force: :cascade do |t|
+    t.string "description"
+    t.integer "rating"
+    t.string "reviewable_type"
+    t.bigint "reviewable_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["rating"], name: "index_reviews_on_rating"
+    t.index ["reviewable_type", "reviewable_id"], name: "index_reviews_on_reviewable_type_and_reviewable_id"
   end
 
   create_table "users", force: :cascade do |t|

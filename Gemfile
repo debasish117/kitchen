@@ -12,7 +12,8 @@ gem 'devise'
 gem 'pg', '~> 0.18.4'
 gem 'bcrypt', '~> 3.1', '>= 3.1.11'
 gem 'jwt'
-gem 'simple_command'
+# gem 'devise'
+gem 'fast_jsonapi'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]

@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  description: MyString
+  rating: 1
+  reviewable: one
+  reviewable_type: Reviewable
+
+two:
+  description: MyString
+  rating: 1
+  reviewable: two
+  reviewable_type: Reviewable
