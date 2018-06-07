@@ -14,6 +14,7 @@ gem 'bcrypt', '~> 3.1', '>= 3.1.11'
 gem 'jwt'
 # gem 'devise'
 gem 'fast_jsonapi'
+gem 'rack-cors', require: 'rack/cors'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
