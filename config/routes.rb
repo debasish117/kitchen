@@ -4,11 +4,13 @@ Rails.application.routes.draw do
 
   namespace :api, defaults: { format: :json } do
     namespace :v1 do
-      resources :items
-      resources :restaurants
+      resources :restaurants do
+        resources :items
+      end
       resources :users do
         resources :contacts
       end
+      resources :customers
     end
   end
   post 'authenticate', to: 'authentication#authenticate'

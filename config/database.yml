@@ -33,13 +33,9 @@ development:
   encoding: unicode
   database: <%= repository_name %>_development
   pool: 5
-  username: postgres
-  password: debasish117
 
 test:
   adapter: postgresql
   encoding: unicode
   database: <%= repository_name %>_test
   pool: 5
-  username: postgres
-  password: debasish117
