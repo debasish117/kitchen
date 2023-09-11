@@ -38,10 +38,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_08_031530) do
     t.string "contact_number"
     t.string "gender"
     t.integer "age"
-    t.integer "restaurant_id"
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
-    t.index ["restaurant_id"], name: "index_customers_on_restaurant_id"
   end
 
   create_table "items", force: :cascade do |t|
@@ -51,12 +49,11 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_08_031530) do
     t.string "difficulty_level"
     t.integer "category_id"
     t.integer "restaurant_id"
-    t.integer "customer_id"
     t.integer "pricing_id"
     t.string "origin"
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
-    t.index ["restaurant_id", "customer_id", "category_id"], name: "index_items_on_restaurant_id_and_customer_id_and_category_id"
+    t.index ["restaurant_id", "category_id"], name: "index_items_on_restaurant_id_and_category_id"
   end
 
   create_table "order_items", force: :cascade do |t|
@@ -68,11 +65,12 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_08_031530) do
   end
 
   create_table "orders", force: :cascade do |t|
-    t.integer "customer_id"
-    t.integer "restaurant_id"
+    t.integer "status", default: 0
+    t.string "orderable_type"
+    t.bigint "orderable_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["customer_id", "restaurant_id"], name: "index_orders_on_customer_id_and_restaurant_id"
+    t.index ["orderable_type", "orderable_id"], name: "index_orders_on_orderable"
   end
 
   create_table "pricings", force: :cascade do |t|

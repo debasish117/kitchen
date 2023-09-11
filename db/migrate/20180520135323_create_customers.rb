@@ -5,10 +5,8 @@ class CreateCustomers < ActiveRecord::Migration[5.1]
       t.string :contact_number
       t.string :gender
       t.integer :age
-      t.integer :restaurant_id
 
       t.timestamps
     end
-    add_index :customers, :restaurant_id
   end
 end

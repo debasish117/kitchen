@@ -10,7 +10,10 @@ Rails.application.routes.draw do
       resources :users do
         resources :contacts
       end
-      resources :customers
+      resources :customers do
+        resources :orders
+      end
+
     end
   end
   post 'authenticate', to: 'authentication#authenticate'
