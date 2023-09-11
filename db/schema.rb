@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_09_08_031530) do
+ActiveRecord::Schema[7.0].define(version: 2023_09_11_144815) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -31,6 +31,15 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_08_031530) do
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
     t.index ["user_id"], name: "index_contacts_on_user_id"
+  end
+
+  create_table "customer_restaurant_orders", force: :cascade do |t|
+    t.integer "customer_id"
+    t.integer "restaurant_id"
+    t.integer "order_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["order_id", "restaurant_id"], name: "index_customer_restaurant_orders_on_order_id_and_restaurant_id"
   end
 
   create_table "customers", force: :cascade do |t|
@@ -66,11 +75,10 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_08_031530) do
 
   create_table "orders", force: :cascade do |t|
     t.integer "status", default: 0
-    t.string "orderable_type"
-    t.bigint "orderable_id"
+    t.integer "customer_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["orderable_type", "orderable_id"], name: "index_orders_on_orderable"
+    t.index ["customer_id"], name: "index_orders_on_customer_id"
   end
 
   create_table "pricings", force: :cascade do |t|
